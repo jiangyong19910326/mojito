@@ -3,13 +3,14 @@
 namespace Moell\Mojito\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Arr;
 
 class AdminUser extends JsonResource
 {
     public function toArray($request)
     {
         if ($this->resourceAttrs) {
-            return array_only($this->resource->toArray(), $this->resourceAttrs);
+            return Arr::only($this->resource->toArray(), $this->resourceAttrs);
         } else {
             return [
                 'id' => $this->id,

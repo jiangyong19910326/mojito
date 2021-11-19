@@ -213,6 +213,8 @@ class MojitoTableSeeder extends Seeder
         $this->createMenu();
 
         $this->associateRolePermissions();
+
+        $this->associateRoleMenus();
     }
 
     /**
@@ -352,5 +354,13 @@ class MojitoTableSeeder extends Seeder
         foreach ($this->permissions as $permission) {
             $role->givePermissionTo($permission['name']);
         }
+    }
+    /**
+     * osindex<yaoiluo@gmail.com>
+     */
+    private function associateRoleMenus()
+    {
+        $role = Role::first();
+        $role->menus()->toggle(Menu::pluck('id'));
     }
 }

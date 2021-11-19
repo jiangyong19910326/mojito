@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateMenuTable  extends Migration
+class CreateMenuTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,10 +19,12 @@ class CreateMenuTable  extends Migration
             $table->string('icon', 50)->nullable();
             $table->string('uri');
             $table->tinyInteger('is_link')->default(0)->comment('0-no;1-yes');
+            $table->tinyInteger('is_display')->default(1)->comment('0-no;1-yes');
             $table->string('permission_name', 50)->nullable();
             $table->string('name');
             $table->string('guard_name', 30);
             $table->smallInteger('sequence')->default(0);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
