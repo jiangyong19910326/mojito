@@ -190,6 +190,21 @@ class MojitoTableSeeder extends Seeder
             'display_name' => '所有权限组',
             'pg_id' => 5,
         ],
+        [
+            'name' => 'permission.all-user-permission',
+            'display_name' => '用户所有权限',
+            'pg_id' => 5,
+        ],
+        [
+            'name' => 'menu.my',
+            'display_name' => '用户菜单列表',
+            'pg_id' => 4,
+        ],
+        [
+            'name' => 'admin-user.me',
+            'display_name' => '用户个人信息',
+            'pg_id' => 1,
+        ],
     ];
 
     /**
