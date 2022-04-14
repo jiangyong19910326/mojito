@@ -13,7 +13,9 @@
     "require": {
         "php": "^7.2.0",
         "spatie/laravel-permission": "~3.2",
-        "laravel/sanctum": "^2.4"
+        "laravel/sanctum": "^2.4",
+        "rappasoft/laravel-authentication-log": "^1.0",
+        "torann/geoip": "^3.0"
     },
     "require-dev": {
         "orchestra/testbench": "~5.1.0",

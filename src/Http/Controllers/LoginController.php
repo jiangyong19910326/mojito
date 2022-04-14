@@ -18,7 +18,7 @@ class LoginController extends Controller
     {
         $config = data_get(config("mojito.guards"), $request->guard);
 
-        if (! $config) {
+        if (!$config) {
             return $this->forbidden("Undefined guard");
         }
 
@@ -33,12 +33,14 @@ class LoginController extends Controller
             return $query->where($conditions);
         })->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            event(new \Illuminate\Auth\Events\Failed('admin', $user, [$request->username, $request->password]));
             throw ValidationException::withMessages([
                 'username' => ['The provided credentials are incorrect.'],
             ]);
         }
-
+        //登录成功日志监听
+        event(new \Illuminate\Auth\Events\Login('admin', $user, false));
         PersonalAccessToken::query()->where("tokenable_type", $config['model'])
             ->where("name", $request->guard)
             ->where("tokenable_id", $user->id)
@@ -55,8 +57,10 @@ class LoginController extends Controller
      * logout
      * @return \Illuminate\Http\Response
      */
-    public function logout()
+    public function logout(Request $request)
     {
+        $user = $request->user();
+        event(new \Illuminate\Auth\Events\Logout('admin',$user));
         Auth::user()->currentAccessToken()->delete();
 
         return $this->noContent();
