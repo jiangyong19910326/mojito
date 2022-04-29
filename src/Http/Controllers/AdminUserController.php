@@ -30,8 +30,11 @@ class AdminUserController extends Controller
      */
     public function index(Request $request)
     {
-        $per_page = config('mojito.page');
-        return new AdminUserCollection($this->adminUserModel->where(request_intersect(['name', 'username']))->paginate($request->$per_page ?? 15));
+        $per_page = config('mojito.page',  [
+            'per_page' => 'per_page',
+            'page'=> 'page',
+        ],);
+        return new AdminUserCollection($this->adminUserModel->where(request_intersect(['name', 'username']))->paginate($request->{$per_page['per_page']} ?? 15));
     }
 
     /**
